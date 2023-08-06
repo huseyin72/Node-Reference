@@ -1,0 +1,41 @@
+
+extends ../layouts/main-layout.pug
+block styles
+  link(rel="stylesheet", href="/css/forms.css")
+
+
+block content      
+          
+  form(action="/admin/products", method="POST")
+    input(type="hidden",name="id", value=`${product.id}`)
+    .form-group.row
+      label.col-sm-2.col-form-label(for="name") Product Name
+      .col-sm-10
+        input.form-control(type="text", name="name", id="name",value=`${product.name}`)
+
+    .form-group.row
+      label.col-sm-2.col-form-label(for="price") Price
+      .col-sm-10
+        input.form-control(type="text", name="price", id="price",value=`${product.price}`)
+
+    .form-group.row
+      label.col-sm-2.col-form-label(for="image") image
+      .col-sm-10
+        input.form-control(type="text", name="image", id="image",value=`${product.image}`)
+    
+    .form-group.row
+      label.col-sm-2.col-form-label(for="categoryid") Category
+      .col-sm-10
+        select.form-control#categoryid(name="categoryid")
+          option(value="-1") Select Category
+          each category in categories
+            option(value=`${category.id}` selected=category.id===product.categoryId) #{category.name}
+
+    .form-group.row
+      label.col-sm-2.col-form-label(for="description") description
+      .col-sm-10
+        textarea.form-control(name="description", cols="30", rows="10") #{product.description}
+
+    .form-group.row
+      .col-sm-10.offset-sm-2
+        input.btn.btn-primary(type="submit", value="Save Product")
